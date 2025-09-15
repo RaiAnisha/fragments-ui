@@ -1,0 +1,27 @@
+{
+  "name": "fragments-ui",
+  "type": "module",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Fragments UI testing web app",
+  "scripts": {
+     "start": "parcel index.html",
+  "build": "parcel build index.html",
+    
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaiAnisha/fragments-ui.git"
+  },
+  "author": "Anisha Rai",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "parcel": "^2.15.4",
+    "vite": "^6.3.6"
+  },
+  "dependencies": {
+    "oidc-client-ts": "^3.3.0"
+  }
+}
