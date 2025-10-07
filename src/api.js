@@ -4,7 +4,7 @@
 // const apiUrl = process.env.API_URL || 'http://ec2-34-229-171-22.compute-1.amazonaws.com:8080';
 // export const API_BASE_URL = apiUrl.replace(/\/$/, ''); // remove trailing slash if any
 
-export const API_BASE_URL ='http://localhost:8080';
+export const API_BASE_URL =process.env.API_URL || 'http://localhost:8080';
 
 /**
  * Given an authenticated user, request all fragments for this user from the
@@ -36,14 +36,14 @@ export const API_BASE_URL ='http://localhost:8080';
 export async function getUserFragments(user) {
   console.log('Requesting user fragments data...');
   //badal rhi hu jp
-   // 🔍 Add this line ↓↓↓
+   // Add this line ↓↓↓
   console.log('Token being sent:', user.idToken);
   try {
     const fragmentsUrl = new URL('/v1/fragments', API_BASE_URL);
     const res = await fetch(fragmentsUrl, {
-      // headers: user.authorizationHeaders(),
-      'Authorization': `Bearer ${user.idToken}` ,
-      'Content-Type': 'application/json',
+      headers: user.authorizationHeaders(),
+      // 'Authorization': `Bearer ${user.idToken}` ,
+      // 'Content-Type': 'application/json',
     });
 
     if (!res.ok) {
