@@ -62,16 +62,33 @@ export async function getUserFragments(user) {
 export async function createUserFragment(user, content) {
   console.log('Creating new fragment...');
   try {
-    const fragmentsUrl = new URL('/v1/fragments', apiUrl);
-    const res = await fetch(fragmentsUrl, {
-      method: 'POST',
-      headers: {
-        ...user.authorizationHeaders(),
-        'Content-Type': 'text/plain',
-      },
-      body: content,
-    });
+    const fragmentsUrl = new URL('/v1/fragments', API_BASE_URL);
+    // const res = await fetch(fragmentsUrl, {
+    //   method: 'POST',
+    //   headers: {
+    // //     ...user.authorizationHeaders(),
+    // //     'Content-Type': 'text/plain',
+    // //   },
+    // //   body: content,
+    // // });
 
+    // ...user.authorizationHeaders(),
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     type: 'text/plain',
+    //     content: content,
+    //   }),
+    // });
+        const res = await fetch(fragmentsUrl, {
+          method: 'POST',
+          headers: user.authorizationHeaders('application/json'), // send JSON
+          body: JSON.stringify({ 
+            type: 'text/plain',
+            content : content,
+          //'Content-Type': type,
+          }), // wrap content in JSON
+        });
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
