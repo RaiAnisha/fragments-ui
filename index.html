@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -15,6 +15,71 @@
     </section>
     <section hidden id="user">
       <h2>Hello <span class="username"></span>!</h2>
+    </section>
+  </body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fragments UI</title>
+    <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <h1>Fragments UI</h1>
+
+    <section>
+      <nav>
+        <button id="login">Login</button>
+      </nav>
+    </section>
+
+    <section hidden id="user">
+      <h2>Hello <span class="username"></span>!</h2>
+
+      <!-- Add fragment creation form -->
+      <!--<h3>Create a Fragment</h3>
+      <form id="fragmentForm">
+        <input type="text" id="fragmentInput" placeholder="Enter your fragment" />
+        <button type="submit">Create</button>
+      </form>-->
+
+      <!-- Show server response -->
+      <!--<pre id="result"></pre>
+    </section>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fragments UI</title>
+    <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <h1>Fragments UI</h1>
+
+    <!-- Navigation / Login -->
+    <nav>
+      <button id="login">Login</button>
+      <button id="logout" style="display:none">Logout</button>
+    </nav>
+
+    <!-- User info section -->
+    <section hidden id="user">
+      <h2>Hello <span class="username"></span>!</h2>
+
+      <!-- Fragment creation -->
+      <section id="fragments" hidden>
+        <input type="text" id="fragment-input" placeholder="Enter your fragment" />
+        <button id="create-fragment">Create</button>
+
+        <ul id="fragment-list"></ul>
+        <div id="fragments-output"></div>
+      </section>
     </section>
   </body>
 </html>
