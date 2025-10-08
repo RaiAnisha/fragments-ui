@@ -37,9 +37,10 @@ export async function getUserFragments(user) {
   console.log('Requesting user fragments data...');
   //badal rhi hu jp
    // Add this line ↓↓↓
-  console.log('Token being sent:', user.idToken);
+  // console.log('Token being sent:', user.idToken);
   try {
     const fragmentsUrl = new URL('/v1/fragments', API_BASE_URL);
+    
     const res = await fetch(fragmentsUrl, {
       headers: user.authorizationHeaders(),
       // 'Authorization': `Bearer ${user.idToken}` ,
@@ -52,7 +53,8 @@ export async function getUserFragments(user) {
 
     const data = await res.json();
     console.log('Successfully got user fragments data', { data });
-    return {fragments:data.fragments||[]};
+    return data.fragments || [];
+    //return {fragments: data.fragments || []}
   } catch (err) {
     console.error('Unable to call GET /v1/fragments', { err });
     return [];

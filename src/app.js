@@ -259,6 +259,7 @@ async function init() {
     const content = fragmentInput.value.trim();
     if (!content) {
       alert('Please enter some text before creating a fragment.');
+
       return;
     }
 
@@ -267,8 +268,8 @@ async function init() {
       console.log('Created fragment:', newFragment);
 
       // Refresh list after creating
-      const { fragments } = await getUserFragments(user);
-      renderFragments(fragments, fragmentsOutput);
+      const updatedFragments = await getUserFragments(user);
+      renderFragments(updatedFragments, fragmentsOutput);
       fragmentInput.value = '';
     } catch (err) {
       console.error('Failed to create fragment:', err);
@@ -278,7 +279,8 @@ async function init() {
 
   // Fetch and render fragments
   try {
-    const { fragments } = await getUserFragments(user);
+    const fragments = await getUserFragments(user);
+    //displayFragments(fragments);
     renderFragments(fragments, fragmentsOutput);
   } catch (err) {
     console.error('Failed to fetch fragments:', err);
@@ -288,18 +290,20 @@ async function init() {
 function renderFragments(fragments, container) {
   container.innerHTML = '';
   if (!fragments || fragments.length === 0) {
-    container.innerHTML = '<li>No fragments found</li>';
+    container.innerHTML = '<p> No fragments found </p>';
     return;
   }
 
   fragments.forEach((frag) => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <strong>ID:</strong> ${frag.id}<br>
-      <strong>Type:</strong> ${frag.type}<br>
-      <strong>Size:</strong> ${frag.size} bytes
+    const div = document.createElement('div');
+     div.classList.add('fragment-item');
+    div.innerHTML = `
+      <p><strong>ID:</strong> ${frag.id}</p>
+      <p><strong>Type:</strong> ${frag.type}</p>
+      <p><strong>Size:</strong> ${frag.size} bytes</p>
+      <hr>
     `;
-    container.appendChild(li);
+    container.appendChild(div);
   });
 }
 
