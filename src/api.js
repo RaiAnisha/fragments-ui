@@ -85,7 +85,7 @@ export async function createUserFragment(user, content) {
           headers: user.authorizationHeaders('application/json'), // send JSON
           body: JSON.stringify({ 
             type: 'text/plain',
-            content : content,
+            data : content,
           //'Content-Type': type,
           }), // wrap content in JSON
         });
