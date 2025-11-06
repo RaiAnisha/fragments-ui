@@ -10,7 +10,7 @@ async function init() {
   const fragmentsSection = document.querySelector('#fragments');
   const fragmentInput = document.querySelector('#fragment-input');
   const createFragmentBtn = document.querySelector('#create-fragment');
-  const fragmentList = document.querySelector('#fragment-list');
+  //const fragmentList = document.querySelector('#fragment-list');
   const fragmentsOutput = document.querySelector('#fragments-output');
 
   
@@ -23,7 +23,7 @@ async function init() {
     userSection.hidden = true;
     
     fragmentsSection.hidden = true;
-    fragmentList.hidden = true;
+    //fragmentList.hidden = true;
     return;
   }
 
@@ -31,7 +31,7 @@ async function init() {
   userSection.hidden = false;  
   loginBtn.style.display = 'none'; 
   fragmentsSection.hidden = false;
-  fragmentList.hidden = false;
+  //fragmentList.hidden = false;
 
   
   userSection.querySelector('.username').innerText = user.username;

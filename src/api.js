@@ -18,7 +18,7 @@ export async function getUserFragments(user) {
   
   // console.log('Token being sent:', user.idToken);
   try {
-    const fragmentsUrl = new URL('/v1/fragments', API_BASE_URL);
+    const fragmentsUrl = new URL('/v1/fragments?expand=1', API_BASE_URL);
     
     const res = await fetch(fragmentsUrl, {
       headers: user.authorizationHeaders(),
@@ -30,8 +30,21 @@ export async function getUserFragments(user) {
     }
 
     const data = await res.json();
-    console.log('Successfully got user fragments data', { data });
-    return data.fragments || [];
+
+    // console.log('Successfully got user fragments data', { data });
+    
+    // return data.fragments || [];
+
+     console.log('FULL RESPONSE:', data); // 👈 add this
+
+    // ✅ Log and return properly
+    if (Array.isArray(data.fragments)) {
+      console.log('Returning fragments array:', data.fragments);
+      return data.fragments;
+    } else {
+      console.warn('Unexpected fragments format:', data);
+      return [];
+    }
     
   } catch (err) {
     console.error('Unable to call GET /v1/fragments', { err });
