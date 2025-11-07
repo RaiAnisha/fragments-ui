@@ -6,9 +6,10 @@ async function init() {
  
   const userSection = document.querySelector('#user');
   const loginBtn = document.querySelector('#login');
-  const logoutBtn = document.querySelector('#logout');
+  //const logoutBtn = document.querySelector('#logout');
   const fragmentsSection = document.querySelector('#fragments');
   const fragmentInput = document.querySelector('#fragment-input');
+  const fragmentTypeSelect = document.querySelector('#fragment-type'); // new drop-down
   const createFragmentBtn = document.querySelector('#create-fragment');
   //const fragmentList = document.querySelector('#fragment-list');
   const fragmentsOutput = document.querySelector('#fragments-output');
@@ -26,7 +27,6 @@ async function init() {
     //fragmentList.hidden = true;
     return;
   }
-
   
   userSection.hidden = false;  
   loginBtn.style.display = 'none'; 
@@ -39,14 +39,14 @@ async function init() {
   
   createFragmentBtn.onclick = async () => {
     const content = fragmentInput.value.trim();
+    const type = fragmentTypeSelect.value; // get selected type
     if (!content) {
       alert('Please enter some text before creating a fragment.');
-
       return;
     }
 
     try {
-      const newFragment = await createUserFragment(user, content);
+      const newFragment = await createUserFragment(user, content, type);
       console.log('Created fragment:', newFragment);
 
       
@@ -61,8 +61,7 @@ async function init() {
 
   
   try {
-    const fragments = await getUserFragments(user);
-    
+    const fragments = await getUserFragments(user);    
     renderFragments(fragments, fragmentsOutput);
   } catch (err) {
     console.error('Failed to fetch fragments:', err);
@@ -76,18 +75,43 @@ function renderFragments(fragments, container) {
     return;
   }
 
-  fragments.forEach((frag) => {
-    const div = document.createElement('div');
-     div.classList.add('fragment-item');
-    div.innerHTML = `
-      <p><strong>ID:</strong> ${frag.id}</p>
-      <p><strong>Type:</strong> ${frag.type}</p>
-      <p><strong>Size:</strong> ${frag.size} bytes</p>
-      <hr>
-    `;
-    container.appendChild(div);
-  });
+   const table = document.createElement('table');
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Size (bytes)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${fragments.map(frag => `
+        <tr>
+          <td>${frag.id}</td>
+          <td>${frag.type}</td>
+          <td>${frag.size}</td>
+        </tr>
+      `).join('')}
+    </tbody>
+  `;
+  container.appendChild(table);
 }
 
-
 addEventListener('DOMContentLoaded', init);
+
+
+//   fragments.forEach((frag) => {
+//     const div = document.createElement('div');
+//      div.classList.add('fragment-item');
+//     div.innerHTML = `
+//       <p><strong>ID:</strong> ${frag.id}</p>
+//       <p><strong>Type:</strong> ${frag.type}</p>
+//       <p><strong>Size:</strong> ${frag.size} bytes</p>
+//       <hr>
+//     `;
+//     container.appendChild(div);
+//   });
+// }
+
+
+//addEventListener('DOMContentLoaded', init);

@@ -10,9 +10,6 @@ export const API_BASE_URL =process.env.API_URL || 'ec2-54-242-162-250.compute-1.
  * fragments microservice (currently only running locally). We expect a user
  * to have an `idToken` attached, so we can send that along with the request.
  */
-
-
-
 export async function getUserFragments(user) {
   console.log('Requesting user fragments data...');
   
@@ -52,19 +49,21 @@ export async function getUserFragments(user) {
   }
 }
 
-export async function createUserFragment(user, content) {
+export async function createUserFragment(user, content, type = 'text/plain') {
   console.log('Creating new fragment...');
   try {
     const fragmentsUrl = new URL('/v1/fragments', API_BASE_URL);
-    
+        
         const res = await fetch(fragmentsUrl, {
           method: 'POST',
-          headers: user.authorizationHeaders('application/json'), // send JSON
-          body: JSON.stringify({ 
-            type: 'text/plain',
-            data : content,
+          headers: user.authorizationHeaders(type), // send selected type as Content-Type
+          body: content, // send raw text
+          // headers: user.authorizationHeaders('application/json'), // send JSON
+          // body: JSON.stringify({ 
+          //   type: 'text/plain',
+          //   data : content,
           
-          }), 
+          // }), 
         });
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
