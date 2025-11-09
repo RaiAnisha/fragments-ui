@@ -11,7 +11,6 @@ async function init() {
   const fragmentInput = document.querySelector('#fragment-input');
   const fragmentTypeSelect = document.querySelector('#fragment-type'); // new drop-down
   const createFragmentBtn = document.querySelector('#create-fragment');
-  //const fragmentList = document.querySelector('#fragment-list');
   const fragmentsOutput = document.querySelector('#fragments-output');
 
   
@@ -24,15 +23,12 @@ async function init() {
     userSection.hidden = true;
     
     fragmentsSection.hidden = true;
-    //fragmentList.hidden = true;
     return;
   }
   
   userSection.hidden = false;  
   loginBtn.style.display = 'none'; 
   fragmentsSection.hidden = false;
-  //fragmentList.hidden = false;
-
   
   userSection.querySelector('.username').innerText = user.username;
 
@@ -98,20 +94,3 @@ function renderFragments(fragments, container) {
 }
 
 addEventListener('DOMContentLoaded', init);
-
-
-//   fragments.forEach((frag) => {
-//     const div = document.createElement('div');
-//      div.classList.add('fragment-item');
-//     div.innerHTML = `
-//       <p><strong>ID:</strong> ${frag.id}</p>
-//       <p><strong>Type:</strong> ${frag.type}</p>
-//       <p><strong>Size:</strong> ${frag.size} bytes</p>
-//       <hr>
-//     `;
-//     container.appendChild(div);
-//   });
-// }
-
-
-//addEventListener('DOMContentLoaded', init);

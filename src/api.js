@@ -28,13 +28,9 @@ export async function getUserFragments(user) {
 
     const data = await res.json();
 
-    // console.log('Successfully got user fragments data', { data });
+     console.log('FULL RESPONSE:', data); 
+
     
-    // return data.fragments || [];
-
-     console.log('FULL RESPONSE:', data); // 👈 add this
-
-    // ✅ Log and return properly
     if (Array.isArray(data.fragments)) {
       console.log('Returning fragments array:', data.fragments);
       return data.fragments;
@@ -56,14 +52,8 @@ export async function createUserFragment(user, content, type = 'text/plain') {
         
         const res = await fetch(fragmentsUrl, {
           method: 'POST',
-          headers: user.authorizationHeaders(type), // send selected type as Content-Type
-          body: content, // send raw text
-          // headers: user.authorizationHeaders('application/json'), // send JSON
-          // body: JSON.stringify({ 
-          //   type: 'text/plain',
-          //   data : content,
-          
-          // }), 
+          headers: user.authorizationHeaders(type), 
+          body: content, 
         });
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
