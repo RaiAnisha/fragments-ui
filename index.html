@@ -5,6 +5,7 @@
     <title>Fragments UI</title>
     <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
     <script type="module" src="src/app.js"></script>
+
     <style>
       body {
         background-color: #f8f9fa;
@@ -20,8 +21,10 @@
         padding: 2rem 3rem;
         border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 600px;
+        width: 520%;
+        max-width: 1200px;
+        height: auto !important;
+        min-height: 100%; 
       }
 
       nav {
@@ -38,36 +41,55 @@
       #fragments-output {
         margin-top: 1rem;
       }
+
+      /* Table styling */
       .fragments-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-.fragments-table th,
-.fragments-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 0.95rem;
-}
+      .fragments-table th,
+      .fragments-table td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 0.95rem;
+      }
 
-.fragments-table th {
-  background-color: #f5f6f7;
-  font-weight: bold;
-}
+      .fragments-table th {
+        background-color: #f5f6f7;
+        font-weight: bold;
+      }
 
-.fragments-table tr:hover {
-  background-color: #f1f3f5;
-}
+      .fragments-table tr:hover {
+        background-color: #f1f3f5;
+      }
 
+      .frag-btn {
+        padding: 5px 10px;
+        margin-right: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+      }
 
+      .delete-btn {
+        background: #ff6b6b;
+        color: white;
+      }
+
+      .edit-btn {
+        background: #4dabf7;
+        color: white;
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
       <h1>Fragments UI</h1>
@@ -84,7 +106,9 @@
 
         <!-- Fragment creation -->
         <section id="fragments" hidden>
-          <label for="fragment-type"><b>Select Fragment Type:</b></label>
+
+          <!-- Fragment Type Selector -->
+          <label for="fragment-type"><b>Select Fragment Type (Text Mode):</b></label>
           <select id="fragment-type">
             <option value="text/plain">Text</option>
             <option value="text/markdown">Markdown</option>
@@ -92,20 +116,50 @@
             <option value="application/json">JSON</option>
           </select>
 
-          <label for="fragment-input"><b>Create a new fragment</b></label>
+          <label for="fragment-input"><b>Create a new text fragment</b></label>
           <textarea
             id="fragment-input"
             rows="4"
-            placeholder="Enter your text or JSON here..."
+            placeholder="Enter text, markdown, HTML, or JSON"
           ></textarea>
+
           <button id="create-fragment">Create Fragment</button>
 
-          <h3>Your Fragments</h3>
-          <div class="fragments-grid" id="fragments-output">
-            <!-- dynamically filled by JS-->
+          <hr />
+
+          <!-- File uploading -->
+          <h3>Upload a File Fragment</h3>
+
+          <div
+            id="drop-zone"
+            style="
+              border: 2px dashed #6c757d;
+              border-radius: 10px;
+              padding: 30px;
+              text-align: center;
+              cursor: pointer;
+              background-color: #f8f9fa;
+              margin-bottom: 10px;
+            "
+          >
+            <p>Drag & Drop a file here, or click to choose</p>
+            <input type="file" id="file-input" style="display:none" />
           </div>
+
+          <button id="upload-file-btn">Upload File</button>
+
+          <h3>Your Fragments</h3>
+          <!-- This is where fragments will be rendered -->
+          <div id="fragments-output"></div>
+
         </section>
       </section>
     </div>
+    <div id="viewer-container" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+     background:rgba(0,0,0,0.8); z-index:9999; padding:20px; box-sizing:border-box; overflow:auto;">
+  <button id="close-viewer" style="position:absolute; top:10px; right:10px; font-size:20px;">✖</button>
+  <div id="viewer-content" style="max-width:100%; max-height:100%; margin:auto;"></div>
+</div>
+
   </body>
 </html>

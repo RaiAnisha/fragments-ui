@@ -5,9 +5,8 @@
   "version": "0.0.1",
   "description": "Fragments UI testing web app",
   "scripts": {
-     "start": "parcel index.html",
-  "build": "parcel build index.html",
-    
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +16,7 @@
   "author": "Anisha Rai",
   "license": "UNLICENSED",
   "devDependencies": {
+    "buffer": "^6.0.3",
     "http-server": "^14.1.1",
     "parcel": "^2.15.4",
     "vite": "^6.3.6"
